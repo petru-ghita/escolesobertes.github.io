@@ -69,9 +69,10 @@ input[type=search], input[type=tel], input[type=text], input[type=url], input[ty
     border-radius: .4rem;
     box-shadow: none;
     box-sizing: inherit;
-    height: 3.8rem;
+    height: 3.2rem;
     padding: .6rem 1rem;
     width: 100%;
+    font-size: 13px;
 }
 
 #taulas_wrapper a.paginate_button {
