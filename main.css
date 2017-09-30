@@ -90,6 +90,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 
 table#taulas {
     margin-bottom: 20px;
+    font-size: 12px;
 }
 
 table.dataTable tfoot th, table.dataTable tfoot td {
