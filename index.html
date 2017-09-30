@@ -155,11 +155,17 @@
 		],
 		"createdRow": function( row, data, dataIndex ) {
 		if ( data.gsx$estat.$t == "tancat" ) {
-		$(row).addClass( 'important' );
+		$(row).addClass( 'tancat' );
 		}
 		if ( data.gsx$estat.$t == "obert" ) {
-		$(row).addClass( 'green' );
+		$(row).addClass( 'obert' );
 		}
+		if ( data.gsx$gent.$t == "falta" ) {
+		$(row).addClass( 'falta' );
+		}	
+		if ( data.gsx$gent.$t == "suficient" ) {
+		$(row).addClass( 'suficient' );
+		}		
 		if ( data.gsx$policia.$t == "si" ) {
 		$(row).addClass( 'policia' );
 		}
