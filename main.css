@@ -23,6 +23,21 @@ td.estat {
     text-align: center !important;
 }
 
+tr.falta {
+    background: #fffcad !important;
+}
+
+tr.obert.suficient {
+    background: #c5ffcc;
+    color: #227e3c;
+}
+
+tr.tancat.falta {
+    background: #ffb4b4 !important;
+    color: #992626;
+    font-weight: 300;
+}
+
 tr.important {
     background: #ffe1e1 !important;
     color: #e32323 !important;
