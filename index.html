@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ca_ES">
+	<head>
+		<title>Escoles Obertes</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Estat actual de les Escoles Obertes">
+		<meta property="og:locale" content="ca_ES">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Status escoles">
+		<meta property="og:description" content="Status escoles" />
+		<meta property="og:url" content="/">
+		<meta property="og:site_name" content="Escoles obertes">
+		<meta property="og:image" content="">
+		<meta property="og:image:width" content="704" />
+		<meta property="og:image:height" content="428" />
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@escolesobertes">
+		<meta name="twitter:title" content="Status escoles">
+		<meta name="twitter:description" content="Escoles obertes">
+		<meta name="twitter:image" content="">
+		<link rel="icon" href="">
+		<link href="https://fonts.googleapis.com/css?family=Titillium+Web:300,400,700" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+		<link rel="stylesheet" href="main.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106544996-2"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments)};
+		gtag('js', new Date());
+		gtag('config', 'UA-106544996-2');
+		</script>
+	</head>
+	<body>
+		<main class="wrapper">
+			
+			<nav class="navigation">
+				<section class="container">
+					<a class="navigation-title" href="/">
+					<h1 class="title"><img src="11.png" style="max-height: 17px;"></h1> </a>
+					<ul class="navigation-list float-right">
+						<li class="navigation-item"><a class="navigation-link" href="#"></a> </li>
+						<li class="navigation-item"><a class="navigation-link" href="#"></a></li>
+					</ul>
+				</section>
+			</nav>
+			
+			
+			<section class="container bg" id="utilities" >
+				
+				<h3>Estat actual de les seus ellectorals</h3>
+				
+				<p style="margin-bottom:30px">Llistat de seus electorals.</p>
+				
+				
+				
+				<table id="taulas" class="taula">
+					<thead>
+						<tr>
+							<th>Municipi</th>
+							<th>Lloc</th>
+							<th>Carrer</th>
+							<th>Estat</th>
+							<th>Gent</th>
+
+						</tr>
+					</thead>
+					<tfoot>
+					<tr>
+						<th>Municipi</th>
+						<th>Lloc</th>
+						<th>Carrer</th>
+ 						<th>Estat</th>
+						<th>Gent</th>
+
+					</tr>
+					</tfoot>
+				</table>
+			</section>
+			<footer class="footer">
+				
+			</footer>
+		</main>
+		<div class="modal" style="display: none">
+			<div class="modal-body">
+				<div style="    margin-bottom: 0;
+					width: 100%;
+					text-align: right;
+					font-weight: bold;
+					padding-right: 10px;">
+					<a style="cursor:pointer;" id="tancar" style="font-size: 13px">x</a>
+				</div>
+				<h4 id="titol" style="margin-bottom: 0px"></h4>
+				<p><span id="municipi"></span> - <span id="adreca"></span></p>
+				<form action="https://api.formbucket.com/f/buk_u4IfjF5jccEHjJmrX4elSBo4" method="post">
+
+					<input type="hidden" name="id" id="id" value="" />
+
+					<label>Estat</label>
+					<select name="estat">
+						<option value="Obert">Obert</option>
+						<option value="Tancat">Tancat</option>
+					</select>
+
+					<label>Hi ha policia?</label>
+
+					<select name="policia">
+						<option value="no">No hi ha policia</option>
+						<option value="si">Hi ha policia</option>
+					</select>
+
+					<label>Falta gent?</label>
+
+					<select name="gent">
+						<option value="nofalta">Hi ha suficient gent</option>
+						<option value="falta">Falta gent</option>
+					</select>
+					
+										<label>Comentari</label>
+
+					<textarea placeholder="Si pots aporta un link com ara tweet o post de Facebook" name="missatge"></textarea>
+					<button type="submit" style="width: 100%" id="enviar">Enviar info!</button>
+				</form>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+		<script src="//cdn.datatables.net/plug-ins/1.10.16/filtering/type-based/accent-neutralise.js"></script>
+		<script>
+		$(document).ready(function() {
+		var table = $('#taulas').DataTable( {
+		"ajax": {
+		"url": "https://spreadsheets.google.com/feeds/list/1OhX2nwS2H25rTkSkPJV60RhnoREhBxEW_mAA00CcoNI/1/public/values?alt=json",
+		"dataSrc": 'feed.entry',
+		},
+		"columns": [
+		{ "data": "gsx$municipi.$t" },
+		{ "data": "gsx$local.$t", className: "local" },
+		{ "data": "gsx$direccio.$t", className: "inscrits only-desktop" },
+		// { "data": "gsx$inscrits.$t",  className: "inscrits only-desktop" },
+		{ "data": "gsx$estat.$t", className: "estat"},
+		{ "data": "gsx$gent.$t", className: "prougent"},
+
+		],
+		"createdRow": function( row, data, dataIndex ) {
+		if ( data.gsx$estat.$t == "tancat" ) {
+		$(row).addClass( 'important' );
+		}
+		if ( data.gsx$policia.$t == "si" ) {
+		$(row).addClass( 'policia' );
+		}
+
+		},
+		
+		columnDefs: [ { orderable: false, targets: [1,2] }, { searchable: false, targets: [3,4] }],
+		"lengthChange": false,
+		"language": {
+		sProcessing: "Processant...",
+		sLengthMenu: "Mostra _MENU_ escoles",
+		sZeroRecords: "No s'han trobat escoles.",
+		sInfo: "Mostrant de _START_ a _END_ de _TOTAL_ escoles",
+		sInfoEmpty: "Mostrant de 0 a 0 de 0 escoles",
+		sInfoFiltered: "(filtrat de _MAX_ total escoles)",
+		sInfoPostFix: "",
+		sSearch: "",
+		sLoadingRecords: "Carregant...",
+		sUrl: "",
+		searchPlaceholder: "Cerca per municipi o local",
+		oPaginate: {
+		sFirst: "Primer",
+		sPrevious: "Anterior",
+		sNext: "Següent",
+		sLast: "Últim"
+		}
+		},
+		"pageLength": 200,
+		
+		"initComplete": function( settings, json ) {
+		$( ".policia td.local" ).append( $( "<img src='https://cloud.githubusercontent.com/assets/7119332/2901509/46e40f3e-d5d6-11e3-8d07-f4964bb46d58.png' style='max-width:15px; margin-left:10px; margin-bottom:-2px'>" ) );
+		}
+		} );
+		$('#taulas tbody').on('click', 'tr', function () {
+		var data = table.row( this ).data();
+		$( ".modal #titol" ).html(data.gsx$local.$t);
+		$( ".modal #municipi" ).html(data.gsx$municipi.$t);
+		$( ".modal #adreca" ).html(data.gsx$direccio.$t);
+		$( ".modal #id" ).val(data.gsx$id.$t);
+		$( ".modal" ).show();
+		} );
+		$("#tancar, #enviar").click(function(){
+		$(".modal").hide();
+		});
+		} );
+		</script>
+	</body>
+</html>
